@@ -1,0 +1,15 @@
+{
+  "name": "api--2",
+  "version": "1.0.0",
+  "description": "API desenvovida no programa  explore da Rocktseat.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "keywords": [],
+  "author": "Rafael Pereira",
+  "license": "ISC",
+    "dependencies": {
+    "express": "^4.18.2"
+  }
+}
