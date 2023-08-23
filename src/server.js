@@ -1,16 +1,12 @@
 const express = require('express');
 
+const routes = require("./routes")
+
+
 const app = express();
+app.use(express.json());
 
-app.get("/message/:id/:user", (request, response) => {
-    const {id,user} = request.params
+app.use(routes);
 
-    response.send(`
-    Mensagem Id: ${id}.
-    Para o usuario: ${user}.
- `);
-});
-
-
-const PORT = 4444;
-app.listen(PORT, () => console.log(`server is running on Port ${PORT}`));
+const PORT = 3333
+app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
