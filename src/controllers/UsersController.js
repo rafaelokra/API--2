@@ -23,6 +23,32 @@ class UsersController {
 
       return response.status(201).json();
     }
+    async update(request,response) {
+      const { name, email } = request.body;
+      const user = await database.get("SELECT * FROM users WHERE id = (?)", [id]);
+
+      if (!user) {
+        throw new AppError("Usuario nao encontrado")
+      }
+      const userWitupdatedEmail = await database.get("SELECT * FROM users WHERE email = (?)", [email]);
+
+      if(userWitupdatedEmail && userWitupdatedEmail.id !== id){
+        throw new AppError("Esse e-mail ja esta em uso.");
+      }
+
+      user.name = name;
+      user.email = email;
+
+      await database.run(`
+      UPDATE users SET
+      name = ?,
+      email = ?,
+      update_at = ?,
+      WHERE id = ?`,
+      [user.name,user.email, new Date(), id]
+      );
+
+    }
 }
   
   module.exports = UsersController;
