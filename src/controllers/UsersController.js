@@ -24,10 +24,10 @@ class UsersController {
   }
 
   async update(request, response) {
-     const { name, email, password, old_password } = request.body
-     const { id } = request.params
+     const { name, email, password, old_password } = request.body;
+     const { id } = request.params;
 
-     const database = await sqliteConnection()
+     const database = await sqliteConnection();
      const user = await database.get("SELECT * FROM users WHERE id = (?)", [id])
 
      if(!user) {
@@ -40,8 +40,10 @@ class UsersController {
       throw new AppError("Este e-mail já está em uso.")
      }
 
-     user.name = name
-     user.email= email
+     user.name = name;
+     user.email= email;
+
+    
 
      if(password && !old_password) {
       throw new AppError("Você informar a senha antiga para definir a nova senha")
@@ -56,19 +58,20 @@ class UsersController {
 
       user.password = await hash(password, 8)
      }
-
      await database.run(`
-      UPDATE users SET
-      name = ?,
-      email = ?,
-      password = ?,
-      updated_at = DATETIME('now')
-      WHERE id = ?`, 
-      [user.name, user.email, user.password, new Date(), id]
-    )
+     UPDATE users SET
+     name = ?,
+     email = ?,
+     password = ?,
+     updated_at = DATETIME('now')
+     WHERE id = ?`, 
+     [user.name, user.email, user.password, new Date(), id]
+   )
+   
 
     return response.json()
   }
 }
+
 
 module.exports = UsersController
