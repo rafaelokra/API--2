@@ -1,5 +1,5 @@
-class SessionsController {
+/*class SessionsController {
     async create() {
         
     }
-}
+}*/
