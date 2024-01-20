@@ -1,12 +1,12 @@
 const fs = require("fs");
 const path = require('path');
-const uploadConfig = require("../configs/uploud");
+const uploadConfig = require("../configs/upload");
 
-class diskStorage {
+class DiskStorage {
     async saveFile(file) {
         await fs.promises.rename(
             path.resolve(uploadConfig.TMP_FOLDER, file),
-            path.resolve(uploadConfig.FILES_FOLDER, file)
+            path.resolve(uploadConfig.UPLOADS_FOLDER, file)
         );
 
         return file;
@@ -25,4 +25,4 @@ class diskStorage {
     }
 }
 
-module.exports = diskStorage;
+module.exports = DiskStorage;
